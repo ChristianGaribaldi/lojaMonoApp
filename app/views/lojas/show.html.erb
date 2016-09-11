@@ -1,0 +1,29 @@
+<!-- Página Principal do Sistema -->
+
+<div class="container-fluid">
+  <div class="row">
+          <h3 id="notice">
+            <%= notice %>
+          </h3>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+      <div class="jumbotron">
+        <h1>Loja Virtual Z </h1>
+
+        <p> Escolha a ação a ser realizada: </p>
+
+        <p>
+          <%= link_to 'Cadastro Cliente', new_cliente_path %>
+          <br/><br/>
+          <%= link_to 'Cadastro Produto', new_produto_path %>
+          <br/><br/>
+          <%= link_to 'Efetuar Venda', new_venda_path %>
+          <br/><br/>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

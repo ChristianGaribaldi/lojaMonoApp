@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Efetuar Venda</strong></h3>
+      </div>
+
+      <%= form_for(@venda) do |f| %>
+          <% if @venda.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@venda.errors.count, "error") %> impedem o salvamento desse cadastro:</h2>
+                <ul>
+                  <% @venda.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :produto_id %><br>
+            <%= f.select("produto_id", Produto.all.collect {|p| [ "#{p.nome} - R$  #{p.precoUnitario}" , p.id ] }, { include_blank: true }, class: "form-control",  required: true)%>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :cliente_id %><br>
+            <%= f.select("cliente_id", Cliente.all.collect {|p| [ p.nome, p.id ] }, { include_blank: true },class: "form-control", required: true)%>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :quantidade %><br>
+            <%= f.number_field :quantidade, min: 0, class: "form-control", placeholder: "0", required: true %>
+          </div>
+
+          <!--div class="form-group">
+            <%= f.label :valorVenda %><br>
+            <%= f.number_field :valorVenda, min: 0, class: "form-control", placeholder: "0", required: true %>
+          </div-->
+
+
+          <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+

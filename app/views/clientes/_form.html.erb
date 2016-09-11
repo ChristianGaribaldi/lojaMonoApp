@@ -1,0 +1,68 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Cadastro de Cliente</strong></h3>
+      </div>
+
+      <%= form_for(@cliente) do |f| %>
+          <% if @cliente.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@cliente.errors.count, "error") %> impedem o salvamento desse cadastro:</h2>
+
+                <ul>
+                  <% @cliente.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+        <div class="form-group">
+          <%= f.label :nome %><br>
+          <%= f.text_field :nome, class: "form-control", placeholder: "Nome", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :cpf, 'CPF' %><br>
+          <%= f.text_field :cpf, class: "form-control", placeholder: "123456789",maxlength: 11, required: true %>
+        </div>
+
+        <!--div class="form-group">
+          <label for="InputEndereco">Endereço</label>
+          <input type="text" class="form-control" id="InputEndereco" name="Endereco" placeholder="Rua ABC..." required>
+        </div-->
+
+        <div class="form-group">
+          <%= f.label :email %><br>
+          <%= f.text_field :email, class: "form-control", placeholder: "Email", required: true %>
+        </div>
+
+        <!--<div class="form-group">-->
+          <!--<label for="InputLogin">Login</label>-->
+          <!--<input type="text" class="form-control" id="InputLogin" name="Login" placeholder="Login" required>-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+          <!--<label for="InputPassword">Senha</label>-->
+          <!--<input type="password" class="form-control" id="InputPassword"name="Senha" placeholder="Senha" required>-->
+        <!--</div>-->
+          <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+        <!--input name="Save" class="btn btn-primary btn-block" type="submit" value="Salvar" /-->
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
