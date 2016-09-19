@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908002044) do
+ActiveRecord::Schema.define(version: 20160919185053) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 20160908002044) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "rua"
+    t.integer  "numero"
+    t.string   "bairro"
+    t.string   "cidade"
+    t.string   "estado"
+    t.string   "cep"
   end
 
   create_table "produtos", force: :cascade do |t|
@@ -27,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160908002044) do
     t.float    "precoUnitario"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "qtd_estoque"
   end
 
   create_table "vendas", force: :cascade do |t|
