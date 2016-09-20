@@ -1,19 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @cliente.nome %>
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Ver Cliente</strong></h3>
+      </div>
+      <h4>
+        <strong>Nome:</strong> <%= @cliente.nome %>
+        <br/><br/>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @cliente.cpf %>
-</p>
+        <strong>CPF:</strong><%= @cliente.cpf %>
+        <br/><br/>
 
-<p>
-  <strong>Email:</strong>
-  <%= @cliente.email %>
-</p>
+        <strong>Email:</strong> <%= @cliente.email %>
+        <br/><br/>
 
-<%= link_to 'Edit', edit_cliente_path(@cliente) %> |
-<%= link_to 'Back', clientes_path %>
+        <strong>Endereço:</strong>
+        &nbsp; <%= @cliente.rua %> <%= @cliente.numero %>&nbsp;-&nbsp;<%= @cliente.bairro %>
+        (<%= @cliente.cidade %>&nbsp;/&nbsp;<%= @cliente.estado %>)
+        <br/><br/>
+
+      </h4>
+    </div>
+  </div>
+</div>
+<%= link_to 'Voltar', clientes_path %>

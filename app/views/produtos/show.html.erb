@@ -1,19 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @produto.nome %>
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Ver Produto</strong></h3>
+      </div>
+      <h4>
+        <strong>Nome:</strong> <%= @produto.nome %>
+        <br/><br/>
 
-<p>
-  <strong>Descricao:</strong>
-  <%= @produto.descricao %>
-</p>
+        <strong>Descrição:</strong> <%= @produto.descricao %>
+        <br/><br/>
 
-<p>
-  <strong>Precounitario:</strong>
-  <%= @produto.precoUnitario %>
-</p>
+        <strong>Preço Unitário:</strong> <%= @produto.precoUnitario %>
+        <br/><br/>
 
-<%= link_to 'Edit', edit_produto_path(@produto) %> |
-<%= link_to 'Back', produtos_path %>
+        <strong>Quantidade em Estoque:</strong> <%= @produto.qtd_estoque%>
+      </h4>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Voltar', produtos_path %>
+

@@ -43,7 +43,7 @@ class ProdutosController < ApplicationController
   def update
     respond_to do |format|
       if @produto.update(produto_params)
-        format.html { redirect_to @produto, notice: 'Produto was successfully updated.' }
+        format.html { redirect_to lojas_url, notice: 'Produto atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @produto }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class ProdutosController < ApplicationController
   def destroy
     @produto.destroy
     respond_to do |format|
-      format.html { redirect_to produtos_url, notice: 'Produto was successfully destroyed.' }
+      format.html { redirect_to lojas_url, notice: 'Produto removido com sucesso!' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +70,6 @@ class ProdutosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def produto_params
-      params.require(:produto).permit(:nome, :descricao, :precoUnitario)
+      params.require(:produto).permit(:nome, :descricao, :precoUnitario, :qtd_estoque)
     end
 end

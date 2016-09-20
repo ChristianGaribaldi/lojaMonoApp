@@ -1,6 +1,13 @@
-<h1>Editing Produto</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Editar Produto</strong></h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>
 
-<%= render 'form' %>
+<%= link_to 'Voltar', produtos_path %>
 
-<%= link_to 'Show', @produto %> |
-<%= link_to 'Back', produtos_path %>

@@ -1,3 +1,35 @@
-<%= render 'form' %>
+<script>
+  $( document ).ready(function() {
+    $(".painelEndereco").hide();
 
+    $( "#usarCep" ).click(function() {
+      $( "#cliente_cep" ).prop({
+        disabled: false
+      });
+    });
+
+    $( "#nCep" ).click(function() {
+      $(".painelEndereco").show();
+      $( "#cliente_cep" ).prop({
+        disabled: true
+      });
+      $( "#cliente_cep").val("");
+    });
+
+    $( "#cliente_cep" ).change(function() {
+      atualizaEndereco();
+    });
+  });
+</script>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Cadastro de Cliente</strong></h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>
 <%= link_to 'Voltar', lojas_path %>

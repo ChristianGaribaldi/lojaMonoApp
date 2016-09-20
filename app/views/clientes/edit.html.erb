@@ -1,6 +1,36 @@
-<h1>Editing Cliente</h1>
+<script>
+  $( document ).ready(function() {
+    $(".painelEndereco").hide();
 
-<%= render 'form' %>
+    $( "#usarCep" ).click(function() {
+      $( "#cliente_cep" ).prop({
+        disabled: false
+      });
+    });
 
-<%= link_to 'Show', @cliente %> |
-<%= link_to 'Back', clientes_path %>
+    $( "#nCep" ).click(function() {
+      $(".painelEndereco").show();
+      $( "#cliente_cep" ).prop({
+        disabled: true
+      });
+      $( "#cliente_cep").val("");
+    });
+
+    $( "#cliente_cep" ).change(function() {
+      atualizaEndereco();
+    });
+  });
+</script>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+        <h3><strong>Editar Cliente</strong></h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>
+<%= link_to 'Voltar', clientes_path %>
+
