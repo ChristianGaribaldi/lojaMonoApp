@@ -18,8 +18,8 @@
           <% end %>
 
           <div class="form-group">
-            <%= f.label :produto_id %><br>
-            <%= f.select("produto_id", Produto.all.collect {|p| [ "#{p.nome} - R$  #{p.precoUnitario}" , p.id ] }, { include_blank: true }, class: "form-control",  required: true)%>
+            <%= f.label :produto_id, "Produtos Disponíveis" %><br>
+            <%= f.select("produto_id", options_from_collection_for_select(@produtos, 'id', 'descricao_produto_venda'), { include_blank: true }, class: "form-control",  required: true)%>
           </div>
 
           <div class="form-group">

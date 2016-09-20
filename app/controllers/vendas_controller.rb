@@ -15,6 +15,7 @@ class VendasController < ApplicationController
   # GET /vendas/new
   def new
     @venda = Venda.new
+    @produtos = Produto.all.where("qtd_estoque > 0")
   end
 
   # GET /vendas/1/edit
@@ -25,10 +26,15 @@ class VendasController < ApplicationController
   # POST /vendas.json
   def create
     @venda = Venda.new(venda_params)
-    @venda.valorVenda = @venda.quantidade * Produto.find(@venda.produto_id).precoUnitario
+
+    produto = Produto.find(@venda.produto_id)
+    @venda.valorVenda = @venda.quantidade * produto.precoUnitario
 
     respond_to do |format|
       if @venda.save
+        produto.qtd_estoque -= @venda.quantidade
+        produto.save
+
         format.html { redirect_to lojas_url, notice: 'Venda realizada com sucesso!' }
         format.json { render :show, status: :created, location: @venda }
       else
@@ -70,6 +76,6 @@ class VendasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venda_params
-      params.require(:venda).permit(:produto_id, :cliente_id, :quantidade, :valorVenda)
+      params.require(:venda).permit(:produto_id, :cliente_id, :quantidade)
     end
 end
