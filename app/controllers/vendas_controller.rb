@@ -1,6 +1,6 @@
 class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_produtos_clientes, only: [:new,:edit]
   # GET /vendas
   # GET /vendas.json
   def index
@@ -15,7 +15,6 @@ class VendasController < ApplicationController
   # GET /vendas/new
   def new
     @venda = Venda.new
-    @produtos = Produto.all.where("qtd_estoque > 0")
   end
 
   # GET /vendas/1/edit
@@ -69,6 +68,10 @@ class VendasController < ApplicationController
   end
 
   private
+  def set_produtos_clientes
+    @clientes = Cliente.all
+    @produtos = Produto.all.where("qtd_estoque > 0")
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_venda
       @venda = Venda.find(params[:id])
