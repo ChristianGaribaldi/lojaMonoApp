@@ -1,5 +1,6 @@
 class ClientesController < ApplicationController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy]
+  before_action :set_estados, only: [:new,:edit,:create]
 
   # GET /clientes
   # GET /clientes.json
@@ -15,12 +16,10 @@ class ClientesController < ApplicationController
   # GET /clientes/new
   def new
     @cliente = Cliente.new
-    @estados = Estado.all
   end
 
   # GET /clientes/1/edit
   def edit
-    @estados = Estado.all
   end
 
   # POST /clientes
@@ -64,6 +63,10 @@ class ClientesController < ApplicationController
   end
 
   private
+  def set_estados
+    @estados = Estado.all
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_cliente
       @cliente = Cliente.find(params[:id])

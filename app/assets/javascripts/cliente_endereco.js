@@ -33,3 +33,30 @@ function atualizaEndereco(){
         })
     }
 }
+
+function busca_cep(rua, bairro, cidade, estado){
+    debugger;
+    if(rua != "" && rua.length > 3 && cidade != "" && cidade.length > 3 && estado != ""){
+        debugger;
+        var url = "https://viacep.com.br/ws/" + estado.trim() + "/" + cidade.trim() + "/" + rua.trim() + "/json/";
+        $.ajax({
+            url: url ,
+            context: document.body
+        }).done(function(dados) {
+            debugger;
+            if(dados.length > 0 ) {
+                for (var i = 0; i < dados.length; i++) {
+                    if (dados[i].bairro == bairro)
+                        $("#cliente_cep").val(dados[i].cep);
+                }
+            }
+            else {
+                alert("CEP não encontrado! Dados insuficientes para a busca do CEP.");
+                $( "#cliente_cep").val("");
+            }
+        }).fail(function() {
+            alert("CEP não encontrado!");
+            $( "#cliente_cep").val("");
+        })
+    }
+}

@@ -4,20 +4,28 @@
 
     $( "#usarCep" ).click(function() {
       $( "#cliente_cep" ).prop({
-        disabled: false
+        readOnly: false
       });
     });
 
     $( "#nCep" ).click(function() {
       $(".painelEndereco").show();
       $( "#cliente_cep" ).prop({
-        disabled: true
+        readOnly: true
       });
       $( "#cliente_cep").val("");
     });
 
     $( "#cliente_cep" ).change(function() {
       atualizaEndereco();
+    });
+
+    $("#cliente_estado").change(function(){
+      var rua = $("#cliente_rua").val();
+      var bairro = $("#cliente_bairro").val();
+      var cidade = $("#cliente_cidade").val();
+      var estado = $("#cliente_estado").val();
+      busca_cep(rua,bairro, cidade, estado);
     });
   });
 </script>
