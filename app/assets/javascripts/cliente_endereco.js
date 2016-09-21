@@ -18,7 +18,7 @@ function atualizaEndereco(){
                 $( "#cliente_numero" ).focus();
             }
             else{
-                alert("CEP não encontrado!");
+                alert("CEP não encontrado! \nTente de novo ou preencha o endereço que tentaremos localizar!");
                 $( "#cliente_cep").val("");
                 $("#cliente_rua").val("");
                 $("#cliente_bairro").val("");
