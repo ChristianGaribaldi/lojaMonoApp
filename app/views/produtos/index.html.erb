@@ -21,7 +21,7 @@
                 <tr>
                   <td><%= produto.nome %></td>
                   <td><%= produto.descricao %></td>
-                  <td><%= produto.precoUnitario %></td>
+                  <td>R$ <%= produto.precoUnitario %></td>
                   <td><%= produto.qtd_estoque%></td>
                   <td><%= link_to 'Ver', produto %></td>
                   <td><%= link_to 'Editar', edit_produto_path(produto) %></td>

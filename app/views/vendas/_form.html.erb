@@ -5,7 +5,7 @@
         <h3><strong>Efetuar Venda</strong></h3>
       </div>
 
-      <% if @produtos.length > 0 && @clientes > 0 %>
+      <% if @produtos.length > 0 && @clientes.length > 0 %>
           <%= form_for(@venda) do |f| %>
               <% if @venda.errors.any? %>
                   <div id="error_explanation">
@@ -32,9 +32,6 @@
                 <%= f.label :quantidade %><br>
                 <%= f.number_field :quantidade, min: 0, class: "form-control", placeholder: "0", required: true %>
               </div>
-
-              <%= f.label :valorVenda %><br>
-              <%= f.number_field :valorVenda, min: 0, class: "form-control", placeholder: "0", required: true %>
 
               <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
           <% end %>

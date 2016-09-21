@@ -4,7 +4,25 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
-    @vendas = Venda.all
+    vendas_totais = Venda.all
+    @hash_produtos_vendidos = {}
+    @hash_qtd_total = {}
+    @hash_valor_total = {}
+
+    if !vendas_totais.empty?
+      for venda in vendas_totais
+        if @hash_produtos_vendidos[venda.produto_id].nil?
+          produto = Produto.find(venda.produto_id)
+          @hash_produtos_vendidos[venda.produto_id] = produto.nome
+          @hash_qtd_total[produto.nome] = venda.quantidade
+          @hash_valor_total[produto.nome] = venda.valorVenda
+        else
+          nome = @hash_produtos_vendidos[venda.produto_id]
+          @hash_qtd_total[nome] += venda.quantidade
+          @hash_valor_total[nome] += venda.valorVenda
+        end
+      end
+    end
   end
 
   # GET /vendas/1
@@ -72,13 +90,13 @@ class VendasController < ApplicationController
     @clientes = Cliente.all
     @produtos = Produto.all.where("qtd_estoque > 0")
   end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_venda
-      @venda = Venda.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_venda
+    @venda = Venda.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def venda_params
-      params.require(:venda).permit(:produto_id, :cliente_id, :quantidade)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def venda_params
+    params.require(:venda).permit(:produto_id, :cliente_id, :quantidade)
+  end
 end
