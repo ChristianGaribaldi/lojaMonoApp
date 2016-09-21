@@ -27,9 +27,9 @@
                     (<%= cliente.cidade %>&nbsp;/&nbsp;<%= cliente.estado %>)
                   </td>
                   <td><%= cliente.cep %></td>
-                  <td><%= link_to 'Ver', cliente %></td>
-                  <td><%= link_to 'Editar', edit_cliente_path(cliente) %></td>
-                  <td><%= link_to 'Apagar', cliente, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+                  <td><%= link_to 'Ver', cliente, class:'btn btn-info', role:'button'  %></td>
+                  <td><%= link_to 'Editar', edit_cliente_path(cliente), class:'btn btn-warning', role:'button' %></td>
+                  <td><%= link_to 'Apagar', cliente, method: :delete, data: { confirm: 'Você tem certeza?' }, class:'btn btn-danger', role:'button' %></td>
                 </tr>
             <% end %>
             </tbody>
@@ -37,8 +37,9 @@
       <% else %>
           <div class="alert alert-info" role="alert">Ainda não há Clientes cadastrados!</div>
       <% end %>
+
+      <br/>
+      <%= link_to 'Voltar', lojas_path, class: 'btn btn-default btn-block', role:'button' %>
     </div>
   </div>
 </div>
-
-<%= link_to 'Voltar', lojas_path %>
