@@ -1,8 +1,6 @@
 /**
  * Created by christian on 19/09/16.
  */
-
-
 function atualizaEndereco(){
     var cep = $( "#cliente_cep").val();
     if(cep != "" && cep.length == 8){

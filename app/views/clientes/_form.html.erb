@@ -25,22 +25,11 @@
       <%= f.email_field :email, class: "form-control", placeholder: "Email", required: true %>
     </div>
 
-    <div class="radio">
-      <div class="form-inline">
-        <label>
-          <input type="radio" name="optionsRadios" id="usarCep" value="option1" checked/>
-          <b>Usar CEP</b>
-        </label>
-        <%= f.text_field :cep, class: "form-control", maxlength: 8, required: true  %>
-      </div>
+    <div class="form-inline">
+      <%= f.label :cep, 'CEP' %><br/>
+      <%= f.text_field :cep, class: "form-control",placeholder:'00000000', maxlength: 8, required: true  %>
     </div>
-
-    <div class="radio">
-      <label>
-        <input type="radio" name="optionsRadios" id="nCep" value="option1"/>
-        <b>Não sei meu CEP</b>
-      </label>
-    </div>
+    <br/>
 
     <div class="painelEndereco panel panel-success">
       <div class="panel-heading">

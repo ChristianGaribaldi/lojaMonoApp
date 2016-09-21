@@ -1,21 +1,5 @@
 <script>
   $( document ).ready(function() {
-    $(".painelEndereco").hide();
-
-    $( "#usarCep" ).click(function() {
-      $( "#cliente_cep" ).prop({
-        readOnly: false
-      });
-    });
-
-    $( "#nCep" ).click(function() {
-      $(".painelEndereco").show();
-      $( "#cliente_cep" ).prop({
-        readOnly: true
-      });
-      $( "#cliente_cep").val("");
-    });
-
     $( "#cliente_cep" ).change(function() {
       atualizaEndereco();
     });
