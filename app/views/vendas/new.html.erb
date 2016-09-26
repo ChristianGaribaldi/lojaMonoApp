@@ -1,1 +1,15 @@
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $("[id*='bt_add']" ).click(function(event) {
+      adiciona_carrinho(event);
+      calcula_valor_carrinho();
+    });
+
+    $("[name='bt_remove']" ).click(function(event) {
+      remove_carrinho(event);
+      calcula_valor_carrinho();
+    });
+  });
+
+</script>
 <%= render 'form' %>

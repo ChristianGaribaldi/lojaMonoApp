@@ -1,120 +1,143 @@
 <div class="container-fluid">
-  <!--<div class="row">-->
-    <div class="col-md-10 col-md-offset-1">
-      <div class="page-header">
-        <h3><strong>Efetuar Venda</strong></h3>
-      </div>
+  <div class="col-md-10 col-md-offset-1">
+    <div class="page-header">
+      <h3><strong>Efetuar Venda</strong></h3>
+    </div>
+    <% if @produtos.length > 0 && @clientes.length > 0 %>
+        <%= form_for(@venda) do |f| %>
+            <% if @venda.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@venda.errors.count, "error") %> impedem o salvamento desse cadastro:</h2>
+                  <ul>
+                    <% @venda.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
 
-      <div class="form-group form-inline">
-        <label> Cliente</label>
-        <select class="form-control">
-          <option> Christian</option>
-        </select>
-      </div>
+            <div class="form-group">
+              <%= f.label :cliente_id %>
+              <%= f.select("cliente_id", options_from_collection_for_select(@clientes, 'id', 'nome'), { include_blank: true }, class: "form-control",  required: true)%>
+            </div>
 
-      <div class="col-md-6">
-        <!--PANEL DE PRODUTOS EM ESTOQUE-->
-        <div class="panel panel-primary">
-          <!-- Default panel contents -->
-          <div class="panel-heading">Produtos em Estoque</div>
-          <!-- Table -->
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Unidade(R$)</th>
-              <th>Estoque</th>
-              <th colspan="1"></th>
-            </tr>
-            </thead>
+            <!--PANEL DE PRODUTOS EM ESTOQUE-->
+            <div class="col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #eea236">
+                  <strong>   Produtos em Estoque </strong>
+                </div>
+                <table id="tabela_estoque" class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Unidade(R$)</th>
+                    <th>Estoque</th>
+                    <th colspan="1"></th>
+                  </tr>
+                  </thead>
 
-            <tbody>
-            <tr class="linha">
-              <td>ASDASDA </td>
-              <td>R$ 29,00 </td>
-              <td>150 </td>
-              <td>
-                <button class="btn btn-success">+</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--FIM PANEL DE PRODUTOS EM ESTOQUE-->
-      </div>
+                  <tbody>
+                  <% for produto in @produtos %>
+                      <tr id="linha_estoque_<%=produto.id%>">
+                        <td class="nome"><%= produto.nome%> </td>
+                        <td class="preco"><%= produto.precoUnitario%></td>
+                        <td class="qtd"><%= produto.qtd_estoque%></td>
+                        <td>
+                          <button id="bt_add_<%=produto.id%>" value="<%=produto.id%>" class="btn btn-default btn-sm" style="background-color: #31b0d5">+</button>
+                        </td>
+                      </tr>
+                  <% end %>
 
-      <div class="col-md-6">
-        <!--2 Panel de Carrinho-->
-        <div class="panel panel-success">
-          <!-- Default panel contents -->
-          <div class="panel-heading"  style="background-color: #67b168">Carrinho</div>
-          <!-- Table -->
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Unidade(R$)</th>
-              <th>Quantidade</th>
-              <th colspan="1"></th>
-            </tr>
-            </thead>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!--FIM PANEL DE PRODUTOS EM ESTOQUE-->
 
-            <tbody>
-            <tr class="linha">
-              <td>ASDASDA </td>
-              <td>R$ 29,00 </td>
-              <td>
+            <!--2 Panel de Carrinho-->
+            <div class="col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading"  style="background-color: #67b168">
+                  <strong> Carrinho </strong></div>
+                <table id="tabela_carrinho" class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Unidade(R$)</th>
+                    <th>Quantidade</th>
+                    <th colspan="1"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>ASDASDA </td>
+                    <td>R$ 29,00 </td>
+                    <td>
               <span class="col-md-10">
                 <input type="number" class="form-control" min="1" step="1"/>
               </span>
-              </td>
-              <td><button class="btn btn-danger">-</button> </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- FIM Panel de Carrinho-->
-      </div>
+                    </td>
+                    <td>
+                      <button name="bt_remove" value="<%=produto.id%>" class="btn btn-danger btn-sm">-</button>
 
-      <div class="well col-md-12">
-        <div class="col-md-6">
-          <div class="h5"><strong>Forma de Pagamento:</strong>
-            <label class="radio-inline">
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-              Dinheiro
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-              Cartão
-            </label>
-          </div>
-          <!-- Dados do Cartão-->
-          <div class="input-group col-md-10">
-            <span class="input-group-addon" id="basic-addon1">Número </span>
-            <input type="text" class="form-control" placeholder="00000000000" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group col-md-10">
-            <span class="input-group-addon" id="basic-addon1">Validade </span>
-            <input type="text" class="form-control" placeholder="00/00" aria-describedby="basic-addon1">
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- FIM Panel de Carrinho-->
 
-            <span class="input-group-addon" id="basic-addon1">CVV </span>
-            <input type="text" class="form-control" placeholder="000" aria-describedby="basic-addon1">
-          </div>
-          <!-- Fim Dados do Cartão-->
-        </div>
+            <div class="well col-md-12">
+              <!-- Seção de Pagamento-->
+              <div class="col-md-6">
+                <div class="h5"><strong>Forma de Pagamento:</strong>
+                  <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    Dinheiro
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    Cartão
+                  </label>
+                </div>
 
-        <div class="col-md-6">
-          <div class="input-group col-md-6">
-            <span class="input-group-addon" id="basic-addon1">Desconto %</span>
-            <input type="number" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
-          </div>
-          <div class="h3">
-            <strong> Valor Total: </strong> R$ 150
-          </div>
-        </div>
+                <!-- Dados do Cartão-->
+                <div class="input-group col-md-10">
+                  <span class="input-group-addon" id="basic-addon1">Número </span>
+                  <input type="text" class="form-control" placeholder="00000000000" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group col-md-10">
+                  <span class="input-group-addon" id="basic-addon1">Validade </span>
+                  <input type="text" class="form-control" placeholder="00/00" aria-describedby="basic-addon1">
 
-      </div>
-      <button class="btn btn-primary btn-block">Concluir Compra</button>
-    </div>
+                  <span class="input-group-addon" id="basic-addon1">CVV </span>
+                  <input type="text" class="form-control" placeholder="000" aria-describedby="basic-addon1">
+                </div>
+                <!-- Fim Dados do Cartão-->
+              </div>
+              <!--Fim Seção de Pagamento-->
+
+              <!--Seção Desconto e ValorTotal-->
+              <div class="col-md-6">
+                <div class="input-group col-md-6">
+                  <span class="input-group-addon" id="basic-addon1">Desconto %</span>
+                  <input type="number" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
+                </div>
+                <div class="h3">
+                  <strong> Valor Total: </strong> R$ 150
+                </div>
+              </div>
+              <!--Fim Seção Desconto e ValorTotal-->
+
+            </div>
+            <%= f.submit "Concluir Compra", class: "btn btn-primary btn-block" %>
+        <% end %>
+    <% else %>
+        <div class="alert alert-info" role="alert">Ainda não há Clientes/Produtos cadastrados para realizar uma Venda!</div>
+    <% end %>
+    <br/>
+    <%= link_to 'Voltar', lojas_path, class: 'btn btn-default btn-block', role:'button' %>
   </div>
-<!--</div>-->
+</div>
