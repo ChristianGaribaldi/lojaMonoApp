@@ -1,12 +1,25 @@
 <script type="text/javascript">
   $( document ).ready(function() {
+    //Calcula Valor inicial do Carrinho
+    calcula_valor_carrinho();
+
+    //Adiciono manipulador de evento ao botão de Adicionar ao Carrinho
     $("[id*='bt_add']" ).click(function(event) {
-      adiciona_carrinho(event);
+      event.preventDefault();
+      adiciona_produto_carrinho(event);
       calcula_valor_carrinho();
     });
 
-    $("[name='bt_remove']" ).click(function(event) {
-      remove_carrinho(event);
+    //Adiciono manipulador de evento ao botão de Remover do Carrinho
+    $("[id*='bt_remove']" ).click(function(event) {
+      event.preventDefault();
+      remove_produto_carrinho(event);
+      calcula_valor_carrinho();
+    });
+
+    //Adiciono manipulador de evento ao campo Desconto
+    $("#desconto" ).on("change",function(event) {
+      event.preventDefault();
       calcula_valor_carrinho();
     });
   });

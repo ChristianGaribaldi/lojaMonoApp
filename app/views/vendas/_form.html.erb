@@ -69,20 +69,8 @@
                     <th colspan="1"></th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td>ASDASDA </td>
-                    <td>R$ 29,00 </td>
-                    <td>
-              <span class="col-md-10">
-                <input type="number" class="form-control" min="1" step="1"/>
-              </span>
-                    </td>
-                    <td>
-                      <button name="bt_remove" value="<%=produto.id%>" class="btn btn-danger btn-sm">-</button>
+                  <tbody class="lista_carrinho">
 
-                    </td>
-                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -123,10 +111,10 @@
               <div class="col-md-6">
                 <div class="input-group col-md-6">
                   <span class="input-group-addon" id="basic-addon1">Desconto %</span>
-                  <input type="number" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
+                  <input type="number" id="desconto" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
                 </div>
                 <div class="h3">
-                  <strong> Valor Total: </strong> R$ 150
+                  <strong> Valor Total: </strong> R$ <span id="valor_total"> 150 </span>
                 </div>
               </div>
               <!--Fim Seção Desconto e ValorTotal-->
