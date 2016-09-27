@@ -21,14 +21,14 @@ function adiciona_produto_carrinho(evento){
             "<td class='nome'>" + nome +" </td>" +
             "<td class='preco'>" + preco +" </td>" +
             "<td> <span class='col-md-10'> <input name='quantidade' value='1' type='number' class='form-control' min='1' step='1'/> </span> </td>" +
-            "<td><button id='bt_remove' value='"+ id_produto +"' class='btn btn-danger btn-sm'>-</button>" +
+            "<td><button id='bt_remove_" + id_produto +"' value='"+ id_produto +"' class='btn btn-danger btn-sm'>-</button>" +
             "</td>" +
         "</tr>";
 
     $(".lista_carrinho:last").append(nova_linha);
 
     //Adiciono manipulador de evento ao novo botão de Remover do Carrinho
-    $("[id*='bt_remove']" ).on("click",function(event) {
+    $("[id*='bt_remove_']" ).on("click",function(event) {
         event.preventDefault();
         remove_produto_carrinho(event);
         calcula_valor_carrinho();
@@ -57,7 +57,6 @@ function remove_produto_carrinho(evento){
 function calcula_valor_carrinho(){
     var valor_total = 0;
     $(".lista_carrinho").children().each(function(index,elemento){
-        debugger;
         var qtd = $(elemento).find("[name='quantidade']").val();
         var preco = $(elemento).find(".preco").text();
         if(qtd == "" || preco == "") valor_total+=0;

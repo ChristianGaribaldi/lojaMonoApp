@@ -11,7 +11,7 @@
     });
 
     //Adiciono manipulador de evento ao botão de Remover do Carrinho
-    $("[id*='bt_remove']" ).click(function(event) {
+    $("[id*='bt_remove_']" ).click(function(event) {
       event.preventDefault();
       remove_produto_carrinho(event);
       calcula_valor_carrinho();
