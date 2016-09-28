@@ -10,6 +10,6 @@ class Venda < ActiveRecord::Base
   belongs_to :produto
 
   def qtd_venda
-    errors.add(:base, 'Quantidade indisponível no estoque') if quantidade > produto.qtd_estoque
+    errors.add(:base, "A venda para o produto #{produto.nome} não foi realizada: estoque (#{produto.qtd_estoque} itens) insuficiente para a venda") if quantidade > produto.qtd_estoque
   end
 end

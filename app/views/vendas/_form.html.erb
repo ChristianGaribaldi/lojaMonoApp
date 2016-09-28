@@ -6,8 +6,7 @@
     <% if @produtos.length > 0 && @clientes.length > 0 %>
         <%= form_for(@venda) do |f| %>
             <% if @venda.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(@venda.errors.count, "error") %> impedem o salvamento desse cadastro:</h2>
+                <div class="alert alert-danger" role="alert">
                   <ul>
                     <% @venda.errors.full_messages.each do |message| %>
                         <li><%= message %></li>
@@ -81,28 +80,28 @@
               <!-- Seção de Pagamento-->
               <div class="col-md-6">
                 <div class="h5"><strong>Forma de Pagamento:</strong>
-                  <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  <label class="radio-inline opcao_dinheiro">
+                    <input type="radio" name="opcaoPgt" id="opt_dinheiro" value="Dinheiro" checked>
                     Dinheiro
                   </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  <label class="radio-inline opcao_cartao">
+                    <input type="radio" name="opcaoPgt" id="opt_cartao" value="Cartao">
                     Cartão
                   </label>
                 </div>
 
                 <!-- Dados do Cartão-->
-                <div class="input-group col-md-10">
-                  <span class="input-group-addon" id="basic-addon1">Número </span>
-                  <input type="text" class="form-control" placeholder="00000000000" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group col-md-10">
-                  <span class="input-group-addon" id="basic-addon1">Validade </span>
-                  <input type="text" class="form-control" placeholder="00/00" aria-describedby="basic-addon1">
+                  <div class="input-group col-md-11 dados_cartao">
+                    <span class="input-group-addon" id="num_cartao">Número </span>
+                    <input type="text" name="venda[num_cartao]" class="form-control" placeholder="0000000000000" aria-describedby="num_cartao">
+                  </div>
+                  <div class="input-group col-md-11 dados_cartao">
+                    <span class="input-group-addon" id="valid_cartao">Validade </span>
+                    <input type="text" name="venda[valid_cartao]" class="form-control" placeholder="00/00" aria-describedby="valid_cartao">
 
-                  <span class="input-group-addon" id="basic-addon1">CVV </span>
-                  <input type="text" class="form-control" placeholder="000" aria-describedby="basic-addon1">
-                </div>
+                    <span class="input-group-addon" id="cvv_cartao">CVV </span>
+                    <input type="text" name="venda[cvv_cartao]" class="form-control" placeholder="000" aria-describedby="cvv_cartao">
+                  </div>
                 <!-- Fim Dados do Cartão-->
               </div>
               <!--Fim Seção de Pagamento-->
@@ -111,7 +110,7 @@
               <div class="col-md-6">
                 <div class="input-group col-md-6">
                   <span class="input-group-addon" id="basic-addon1">Desconto %</span>
-                  <input type="number" id="desconto" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
+                  <input type="number" id="desconto" name="venda[desconto]" class="form-control" placeholder="0" min="0" max="100" step="10" aria-describedby="basic-addon1">
                 </div>
                 <div class="h3">
                   <strong> Valor Total: </strong> R$ <span id="valor_total"> 150 </span>

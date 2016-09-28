@@ -1,6 +1,6 @@
 class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :edit, :update, :destroy]
-  before_action :set_produtos_clientes, only: [:new,:edit]
+  before_action :set_produtos_clientes, only: [:new,:edit,:create]
   # GET /vendas
   # GET /vendas.json
   def index
@@ -42,21 +42,38 @@ class VendasController < ApplicationController
   # POST /vendas
   # POST /vendas.json
   def create
-    @venda = Venda.new(venda_params)
+    cliente_id = params[:venda][:cliente_id]
+    desconto = params[:venda][:desconto].to_f
+    @venda = Venda.new
 
-    produto = Produto.find(@venda.produto_id)
-    @venda.valorVenda = @venda.quantidade * produto.precoUnitario
+    cont = 0
+    erros = false
+    for produto in params[:venda][:produto_id]
+      produto_existente = Produto.find(produto)
+      preco_unitario = produto_existente.precoUnitario
+      qtd = params[:venda][:quantidade][cont].to_i
+      valor_venda = qtd * preco_unitario
+      valor_venda *= (1 - (desconto/100))
+      valor_venda = valor_venda.round(2)
+
+      venda = Venda.new(cliente_id: cliente_id, produto_id: produto, quantidade: qtd, valorVenda: valor_venda)
+      if !venda.save
+        erros = true
+        for msg in venda.errors.full_messages
+          @venda.errors.add(:base, msg)
+        end
+      else
+        produto_existente.qtd_estoque -= qtd
+        produto_existente.save
+      end
+      cont+= 1
+    end
 
     respond_to do |format|
-      if @venda.save
-        produto.qtd_estoque -= @venda.quantidade
-        produto.save
-
-        format.html { redirect_to lojas_url, notice: 'Venda realizada com sucesso!' }
-        format.json { render :show, status: :created, location: @venda }
-      else
+      if erros
         format.html { render :new }
-        format.json { render json: @venda.errors, status: :unprocessable_entity }
+      else
+        format.html { redirect_to lojas_url, notice: 'Venda realizada com sucesso!' }
       end
     end
   end

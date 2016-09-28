@@ -20,7 +20,10 @@ function adiciona_produto_carrinho(evento){
         "<tr id='linha_carrinho_"+ id_produto +"'>" +
             "<td class='nome'>" + nome +" </td>" +
             "<td class='preco'>" + preco +" </td>" +
-            "<td> <span class='col-md-10'> <input name='quantidade' value='1' type='number' class='form-control' min='1' step='1'/> </span> </td>" +
+            "<td> <span class='col-md-10'>" +
+                    "<input name='venda[produto_id][]' value='" + id_produto + "' type='hidden'/>" +
+                    "<input name='venda[quantidade][]' value='1' type='number' class='form-control' min='1' step='1'/> </span> " +
+            "</td>" +
             "<td><button id='bt_remove_" + id_produto +"' value='"+ id_produto +"' class='btn btn-danger btn-sm'>-</button>" +
             "</td>" +
         "</tr>";
@@ -57,7 +60,7 @@ function remove_produto_carrinho(evento){
 function calcula_valor_carrinho(){
     var valor_total = 0;
     $(".lista_carrinho").children().each(function(index,elemento){
-        var qtd = $(elemento).find("[name='quantidade']").val();
+        var qtd = $(elemento).find("[name*='quantidade']").val();
         var preco = $(elemento).find(".preco").text();
         if(qtd == "" || preco == "") valor_total+=0;
         else valor_total+= qtd * preco;

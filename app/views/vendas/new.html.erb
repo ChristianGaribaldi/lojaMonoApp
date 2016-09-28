@@ -1,5 +1,9 @@
 <script type="text/javascript">
   $( document ).ready(function() {
+
+    //Oculto seção de Dados do Cartão
+    $(".dados_cartao").hide();
+
     //Calcula Valor inicial do Carrinho
     calcula_valor_carrinho();
 
@@ -21,6 +25,17 @@
     $("#desconto" ).on("change",function(event) {
       event.preventDefault();
       calcula_valor_carrinho();
+    });
+
+
+    //Adiciono manipulador de evento a opçao de pagamento Cartao
+    $(".opcao_cartao").click(function(event) {
+      $(".dados_cartao").show();
+    });
+
+    //Adiciono manipulador de evento a opçao de pagamento Dinheiro
+    $(".opcao_dinheiro").click(function(event) {
+      $(".dados_cartao").hide();
     });
   });
 
