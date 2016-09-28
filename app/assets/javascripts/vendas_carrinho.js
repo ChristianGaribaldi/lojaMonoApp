@@ -3,7 +3,7 @@
  */
 
 function adiciona_produto_carrinho(evento){
-    var botao = evento.target;
+    var botao = evento.currentTarget;
     var id_produto = $(botao).val();
 
     //Desabilita botão de adicionar do produto clicado
@@ -24,7 +24,9 @@ function adiciona_produto_carrinho(evento){
                     "<input name='venda[produto_id][]' value='" + id_produto + "' type='hidden'/>" +
                     "<input name='venda[quantidade][]' value='1' type='number' class='form-control' min='1' step='1'/> </span> " +
             "</td>" +
-            "<td><button id='bt_remove_" + id_produto +"' value='"+ id_produto +"' class='btn btn-danger btn-sm'>-</button>" +
+            "<td><button id='bt_remove_" + id_produto +"' value='"+ id_produto +"' class='btn btn-danger btn-sm'>" +
+                    "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>"+
+                "</button>" +
             "</td>" +
         "</tr>";
 
@@ -45,7 +47,7 @@ function adiciona_produto_carrinho(evento){
 }
 
 function remove_produto_carrinho(evento){
-    var botao = evento.target;
+    var botao = evento.currentTarget;
     var id_produto = $(botao).val();
 
     //Habilita botão de adicionar do produto removido do carrinho

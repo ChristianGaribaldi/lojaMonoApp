@@ -2,9 +2,13 @@
 
 <div class="container-fluid">
   <div class="row">
-    <h3 id="notice">
-      <%= notice %>
-    </h3>
+    <% if !notice.nil? %>
+        <div class="alert alert-success" role="alert">
+          <div class="h3" id="notice">
+            <%= notice %>
+          </div>
+        </div>
+    <% end %>
   </div>
 
   <div class="row">

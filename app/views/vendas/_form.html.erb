@@ -43,7 +43,9 @@
                         <td class="preco"><%= produto.precoUnitario%></td>
                         <td class="qtd"><%= produto.qtd_estoque%></td>
                         <td>
-                          <button id="bt_add_<%=produto.id%>" value="<%=produto.id%>" class="btn btn-default btn-sm" style="background-color: #31b0d5">+</button>
+                          <button id="bt_add_<%=produto.id%>" value="<%=produto.id%>" class="btn btn-default btn-sm" style="background-color: #31b0d5">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                          </button>
                         </td>
                       </tr>
                   <% end %>
@@ -93,14 +95,14 @@
                 <!-- Dados do Cartão-->
                   <div class="input-group col-md-11 dados_cartao">
                     <span class="input-group-addon" id="num_cartao">Número </span>
-                    <input type="text" name="venda[num_cartao]" class="form-control" placeholder="0000000000000" aria-describedby="num_cartao">
+                    <input type="text" name="venda[num_cartao]" class="form-control" maxlength="16" placeholder="0000000000000" aria-describedby="num_cartao">
                   </div>
                   <div class="input-group col-md-11 dados_cartao">
                     <span class="input-group-addon" id="valid_cartao">Validade </span>
-                    <input type="text" name="venda[valid_cartao]" class="form-control" placeholder="00/00" aria-describedby="valid_cartao">
+                    <input type="text" name="venda[valid_cartao]" maxlength="5" class="form-control" placeholder="00/00" aria-describedby="valid_cartao">
 
                     <span class="input-group-addon" id="cvv_cartao">CVV </span>
-                    <input type="text" name="venda[cvv_cartao]" class="form-control" placeholder="000" aria-describedby="cvv_cartao">
+                    <input type="text" name="venda[cvv_cartao]" maxlength="3" class="form-control" placeholder="000" aria-describedby="cvv_cartao">
                   </div>
                 <!-- Fim Dados do Cartão-->
               </div>

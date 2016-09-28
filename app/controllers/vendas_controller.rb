@@ -1,6 +1,7 @@
 class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :edit, :update, :destroy]
   before_action :set_produtos_clientes, only: [:new,:edit,:create]
+
   # GET /vendas
   # GET /vendas.json
   def index
@@ -44,36 +45,53 @@ class VendasController < ApplicationController
   def create
     cliente_id = params[:venda][:cliente_id]
     desconto = params[:venda][:desconto].to_f
+    opcao_pgt = params[:opcaoPgt]
     @venda = Venda.new
 
     cont = 0
     erros = false
-    for produto in params[:venda][:produto_id]
-      produto_existente = Produto.find(produto)
-      preco_unitario = produto_existente.precoUnitario
-      qtd = params[:venda][:quantidade][cont].to_i
-      valor_venda = qtd * preco_unitario
-      valor_venda *= (1 - (desconto/100))
-      valor_venda = valor_venda.round(2)
+    if !params[:venda][:produto_id].nil?
+      for produto in params[:venda][:produto_id]
+        produto_existente = Produto.find(produto)
+        preco_unitario = produto_existente.precoUnitario
+        qtd = params[:venda][:quantidade][cont].to_i
+        valor_venda = qtd * preco_unitario
+        valor_venda *= (1 - (desconto/100))
+        valor_venda = valor_venda.round(2)
 
-      venda = Venda.new(cliente_id: cliente_id, produto_id: produto, quantidade: qtd, valorVenda: valor_venda)
-      if !venda.save
-        erros = true
-        for msg in venda.errors.full_messages
-          @venda.errors.add(:base, msg)
+        if opcao_pgt != "Dinheiro"
+          num_cartao = params[:venda][:num_cartao]
+          validade_cartao = params[:venda][:valid_cartao]
+          codigo_cartao = params[:venda][:cvv_cartao]
+          venda = Venda.new(cliente_id: cliente_id, produto_id: produto, quantidade: qtd, valorVenda: valor_venda, tipo_pgt: opcao_pgt,
+                            desconto: desconto, num_cartao: num_cartao, validade_cartao: validade_cartao, codigo_cartao: codigo_cartao)
+        else
+          venda = Venda.new(cliente_id: cliente_id, produto_id: produto, quantidade: qtd, valorVenda: valor_venda,
+                            tipo_pgt: opcao_pgt, desconto: desconto)
         end
-      else
-        produto_existente.qtd_estoque -= qtd
-        produto_existente.save
-      end
-      cont+= 1
-    end
 
-    respond_to do |format|
-      if erros
-        format.html { render :new }
-      else
-        format.html { redirect_to lojas_url, notice: 'Venda realizada com sucesso!' }
+        if !venda.save
+          erros = true
+          for msg in venda.errors.full_messages
+            @venda.errors.add(:base, msg)
+          end
+        else
+          produto_existente.qtd_estoque -= qtd
+          produto_existente.save
+        end
+        cont+= 1
+      end
+
+      respond_to do |format|
+        if erros
+          format.html { render :new }
+        else
+          format.html { redirect_to lojas_url, notice: 'Venda realizada com sucesso!' }
+        end
+      end
+    else
+      respond_to do |format|
+          format.html { render :new }
       end
     end
   end
