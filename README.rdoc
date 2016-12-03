@@ -1,6 +1,6 @@
 == README
 * Aplicação Monolítica desenvolvida como exemplo para Trabalho de Conclusão de Curso.
-* Aplicação para venda de produtos a clientes.
+  Aplicação para venda de produtos a clientes.
 
 * Ruby version: ruby 2.1.1p76
   Rails version: Rails 4.2.6
